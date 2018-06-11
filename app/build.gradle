@@ -23,4 +23,5 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation files('libs/fastjson-1.2.4.jar')
 }
