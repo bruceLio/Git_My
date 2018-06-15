@@ -13,12 +13,31 @@ public class TouchHelper implements View.OnTouchListener {
         this.mTouchInterface = mTouchInterface;
     }
 
-    private TouchInterface mTouchInterface;
-    public TouchHelper(Activity context) {
+
+    private TouchInterface mTouchInterface=new TouchInterface() {
+        @Override
+        public void onDown(int x, int y) {
+            L.e("down x=="+x+"  y=="+y);
+        }
+
+        @Override
+        public void onUp(int x, int y) {
+            L.e("up x=="+x+"  y=="+y);
+        }
+    };
+//    public TouchHelper(Activity context) {
+//        View view = ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);
+//
+//        view.setOnTouchListener(this);
+//
+//    }
+
+    public TouchHelper bindActivity(Activity context){
         View view = ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);
 
         view.setOnTouchListener(this);
 
+        return this;
     }
 
     @Override
@@ -49,7 +68,7 @@ public class TouchHelper implements View.OnTouchListener {
          *  true：view继续响应Touch操作；
          *  false：view不再响应Touch操作，故此处若为false，只能显示起始位置，不能显示实时位置和结束位置
          */
-        return false;
+        return true;
     }
 
 }

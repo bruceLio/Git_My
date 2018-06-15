@@ -7,5 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="statusBarStyle" parent="AppTheme">
+        <!--<item name="android:statusBarColor">@color/status_bar_color</item>-->
+        <!--<item name="android:windowLightStatusBar">false</item>-->
+    </style>
+    <style name="rb">
+        <item name="android:textColor">@color/selector_blue_white</item>
+    </style>
 </resources>

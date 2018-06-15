@@ -1,15 +1,19 @@
 package com.example.myapplication;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okhttp3.internal.http2.Http2Stream;
 
 /**
  * Created by xiaolong on 2018/6/11.
@@ -26,6 +30,7 @@ public class OkHttpUtils {
     }
     public static void postCipher(Callback callback, Object body, String url){
         byte[] base64 = new CipherFastJsonHttpMessageConverter().getBase64(body);
+        String s = new String(base64);
         RequestBody requestBody = RequestBody.create(JSON, base64);
 //        RequestBody.
         Request request=new Request.Builder()
@@ -52,6 +57,8 @@ public class OkHttpUtils {
                     .header("Accept","application/encrypted-json")
                     .build();
             Response response = chain.proceed(request);
+//            ResponseBody body=response.body();
+
             L.e("123");
             return response;
         }

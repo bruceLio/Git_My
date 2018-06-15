@@ -123,7 +123,7 @@ public class CipherFastJsonHttpMessageConverter {
             outputStream.close();
             byte[] base64Bytes = outputStream.toByteArray();
             byte []abc=response.getBytes();
-            byte[] aesBytes = CipherUtil.mapping(decodeDic, base64Bytes);
+            byte[] aesBytes = CipherUtil.mapping(decodeDic, abc);
             byte[] jsonBytes = CipherUtil.decrypt(key, aesBytes, "AES/ECB/PKCS5Padding");
             return JSONUtil.toJSONString(JSON.parseObject(jsonBytes, 0, jsonBytes.length, charset.newDecoder(), clazz));
         }catch (Exception e){

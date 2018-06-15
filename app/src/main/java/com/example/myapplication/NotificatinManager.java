@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -14,6 +15,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
+
+import static android.service.notification.Condition.SCHEME;
 
 /**
  * Created by xiaolong on 2018/6/8.
@@ -33,38 +36,29 @@ public class NotificatinManager {
 
 
 
-    public static boolean goAppNotificationManagement(Activity mActivity) {
-        L.e(getSystem());
-        try {
-            if (Build.VERSION.SDK_INT>=20) {
-                Intent intent = new Intent();
-                if(Build.VERSION.SDK_INT >=26){
-
-                    intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-//                    Uri uri = Uri.fromParts("package", mActivity.getPackageName(), null);
-//                    intent.setData(uri);
-
-//                    intent.setComponent(cm);
-//                    intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-                    intent.putExtra("android.provider.extra.APP_PACKAGE", mActivity.getPackageName());
-                }else {
-                    intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-                    intent.putExtra("app_package", mActivity.getPackageName());
-                    intent.putExtra("app_uid", mActivity.getApplicationInfo().uid);
-
-                }
-                mActivity.startActivity(intent);
-
-                T.show(mActivity,"打开显示应用通知权限。");
+    public static void goAppNotificationManagement(String channel,Context context) {
+        Intent intent = new Intent();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (channel != null) {
+                intent.setAction(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                intent.putExtra(Settings.EXTRA_CHANNEL_ID, channel);
+            } else {
+                intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
             }
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra("app_package", context.getPackageName());
+            intent.putExtra("app_uid", context.getApplicationInfo().uid);
+        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse("package:" + context.getPackageName()));
         }
-
-
+        context.startActivity(intent);
     }
 
 
