@@ -8,7 +8,10 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.myapplication.helper.ISetting;
+import com.example.myapplication.helper.SelfNewsBean;
+import com.example.myapplication.helper.TestJson;
 import com.example.myapplication.helper.WebViewHelper;
 
 import java.io.ByteArrayInputStream;
@@ -23,7 +26,6 @@ import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.Response;
 
-import static android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS;
 
 public class MainActivity extends AppCompatActivity implements TouchInterface {
 
@@ -41,16 +43,8 @@ public static final String APP_ID="wxc819e3156d7bd8d2";
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WebViewHelper.bindSetting(webView, new ISetting() {
-                    @Override
-                    public Map<String, Object> getSettingMap() {
-                        return WebViewHelper.getDefaultMap();
-                    }
-                });
-
-                WebSettings settings = webView.getSettings();
-                L.e("JavaScriptEnabled()=="+settings.getJavaScriptEnabled());
-                L.e("getAllowContentAccess=="+settings.getAllowContentAccess());
+                SelfNewsBean newsBean = JSONObject.parseObject(TestJson.s2, SelfNewsBean.class);
+                newsBean.getCoverType();
             }
         });
     }
