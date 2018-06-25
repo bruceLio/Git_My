@@ -25,16 +25,15 @@ android {
     }
     buildTypes {
         release {
-//            signingConfig signingConfigs.releaseConfig
+            signingConfig signingConfigs.releaseConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        debug{
-//            signingConfig signingConfigs.releaseConfig
-//        }
+        debug{
+            signingConfig signingConfigs.releaseConfig
+        }
     }
 }
-
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
