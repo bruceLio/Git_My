@@ -36,7 +36,7 @@ public class MyYAnimation extends Animation {
         final Matrix matrix = t.getMatrix();
         camera.save();
         //中心是Y轴旋转，这里可以自行设置X轴 Y轴 Z轴
-        camera.rotateY(360 * interpolatedTime);
+        camera.rotateY(90 * interpolatedTime);
         //把我们的摄像头加在变换矩阵上
         camera.getMatrix(matrix);
         //设置翻转中心点

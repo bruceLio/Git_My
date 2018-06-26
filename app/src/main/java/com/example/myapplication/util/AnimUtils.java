@@ -1,12 +1,13 @@
 package com.example.myapplication.util;
 
-import android.os.Handler;
-import android.os.Looper;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-import android.view.animation.RotateAnimation;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
@@ -34,8 +35,23 @@ public class AnimUtils {
     }
 
 
+    public static void startHongBaoRotate(final ImageView hongbaoView){
+        ObjectAnimator hongbaoRotate=ObjectAnimator.ofFloat(hongbaoView,"rotation",0,-15,0,15,0);
+        hongbaoRotate.setDuration(200);
+        hongbaoRotate.setRepeatCount(1);
+        hongbaoRotate.setInterpolator( new DecelerateInterpolator());
+        hongbaoRotate.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                hongbaoView.setImageResource(R.drawable.ico_hongbao);
+            }
+        });
+        hongbaoRotate.start();
 
-    private static void startBonusInnerAnim(final ImageView hongbaoView, View coinView) {
+    }
+
+    public static void startCoinRotate(final ImageView hongbaoView, View coinView) {
         if(hongbaoView==null||coinView==null)return;
         MyYAnimation yAnimation = new MyYAnimation();
         yAnimation.setDuration(200);
@@ -47,7 +63,8 @@ public class AnimUtils {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                hongbaoView.setImageResource(R.drawable.ico_hongbao_dakai);
+                startHongBaoRotate(hongbaoView);
             }
 
             @Override
@@ -56,29 +73,10 @@ public class AnimUtils {
             }
         });
         coinView.startAnimation(yAnimation);
-        RotateAnimation rotateAnimation=new RotateAnimation(-15,15);
-        rotateAnimation.setStartOffset(200);
-        rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                hongbaoView.setImageResource(R.drawable.ico_hongbao_dakai);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        hongbaoView.startAnimation(rotateAnimation);
     }
 
     public static void showBonusAnim(final View bonusContainer, ImageView hongbaoView, View coinView) {
-        startBonusInnerAnim(hongbaoView,coinView);
+        startCoinRotate(hongbaoView,coinView);
         startBonusInAnim(bonusContainer,hongbaoView==null?0:400);
 
     }
