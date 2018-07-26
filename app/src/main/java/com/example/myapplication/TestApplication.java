@@ -22,9 +22,11 @@ import okhttp3.Response;
  * Created by xiaolong on 2018/6/7.
  */
 public class TestApplication extends Application {
+    public static TestApplication app;
     @Override
     public void onCreate() {
         super.onCreate();
+        app=this;
         PrettyFormatStrategy build = PrettyFormatStrategy.newBuilder().methodCount(0).showThreadInfo(false).build();
         AndroidLogAdapter adapter = new AndroidLogAdapter(build);
         Logger.addLogAdapter(adapter);

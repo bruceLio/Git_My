@@ -2,6 +2,7 @@ package com.example.myapplication.util;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -19,7 +20,7 @@ import com.example.myapplication.R;
  */
 public class AnimUtils {
 
-    private static void startBonusInAnim(final View bonusContainer,long offset) {
+    private static void startBonusInAnim(final View bonusContainer, long offset) {
         bonusContainer.setVisibility(View.VISIBLE);
         AnimationSet set = new AnimationSet(true);
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, .5f,  //X轴的开始位置
@@ -35,11 +36,11 @@ public class AnimUtils {
     }
 
 
-    public static void startHongBaoRotate(final ImageView hongbaoView){
-        ObjectAnimator hongbaoRotate=ObjectAnimator.ofFloat(hongbaoView,"rotation",0,-15,0,15,0);
+    public static void startHongBaoRotate(final ImageView hongbaoView) {
+        ObjectAnimator hongbaoRotate = ObjectAnimator.ofFloat(hongbaoView, "rotation", 0, -15, 0, 15, 0);
         hongbaoRotate.setDuration(200);
         hongbaoRotate.setRepeatCount(1);
-        hongbaoRotate.setInterpolator( new DecelerateInterpolator());
+        hongbaoRotate.setInterpolator(new DecelerateInterpolator());
         hongbaoRotate.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -52,7 +53,7 @@ public class AnimUtils {
     }
 
     public static void startCoinRotate(final ImageView hongbaoView, View coinView) {
-        if(hongbaoView==null||coinView==null)return;
+        if (hongbaoView == null || coinView == null) return;
         MyYAnimation yAnimation = new MyYAnimation();
         yAnimation.setDuration(200);
         yAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -76,8 +77,65 @@ public class AnimUtils {
     }
 
     public static void showBonusAnim(final View bonusContainer, ImageView hongbaoView, View coinView) {
-        startCoinRotate(hongbaoView,coinView);
-        startBonusInAnim(bonusContainer,hongbaoView==null?0:400);
+        startCoinRotate(hongbaoView, coinView);
+        startBonusInAnim(bonusContainer, hongbaoView == null ? 0 : 400);
 
     }
+
+    public static void showNewAnim(View hongbao) {
+//        Animation animation = AnimationUtils.loadAnimation(TestApplication.app, R.anim.anim_out);
+//        animation.setDuration(2000);
+//        hongbao.startAnimation(animation);
+//        TranslateAnimation anim=new TranslateAnimation(Animation.RELATIVE_TO_PARENT,0,
+//                Animation.RELATIVE_TO_PARENT,0,
+//                Animation.RELATIVE_TO_PARENT,0,
+//                Animation.RELATIVE_TO_PARENT,1f);
+//        anim.setInterpolator(new DecelerateInterpolator());
+//        anim.setDuration(2000);
+//        hongbao.startAnimation(anim);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(hongbao, "translationY", 0, 500f);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.setDuration(1000);
+        animator.start();
+
+    }
+
+    public static void showBonusAnim(View bonus) {
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(bonus, "scaleX", 0, 1);
+
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(bonus, "scaleY", 0, 1);
+
+        AnimatorSet set = new AnimatorSet();
+        set.setDuration(2000).play(scaleX).with(scaleY);
+        set.start();
+//        ScaleAnimation animation=new ScaleAnimation(0,1,0,1,bonus.getWidth()/2,bonus.getHeight()/2);
+//        animation.setInterpolator(new DecelerateInterpolator());
+//        animation.setDuration(2000);
+//        bonus.startAnimation(animation);
+
+    }
+
+    public static void showAnim(View hongbao, View bonus) {
+        bonus.setVisibility(View.VISIBLE);
+        bonus.setScaleX(0);
+        bonus.setScaleY(0);
+        ObjectAnimator translationY = ObjectAnimator.ofFloat(hongbao, "translationY", 0, 300f);
+        translationY.setInterpolator(new DecelerateInterpolator());
+        ObjectAnimator translationY2 = ObjectAnimator.ofFloat(hongbao, "translationY", 300f, 0);
+        translationY.setInterpolator(new DecelerateInterpolator());
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(bonus, "scaleX", 0, 1);
+        ObjectAnimator scaleX2 = ObjectAnimator.ofFloat(bonus, "scaleX", 1, 0);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(bonus, "scaleY", 0, 1);
+        ObjectAnimator scaleY2 = ObjectAnimator.ofFloat(bonus, "scaleY", 1, 0);
+        AnimatorSet in = new AnimatorSet();
+        in.setDuration(800).play(scaleX).with(scaleY).with(translationY);
+        AnimatorSet out = new AnimatorSet();
+        out.setDuration(800).play(scaleX2).with(scaleY2).with(translationY2).after(3000);
+        AnimatorSet all = new AnimatorSet();
+        all.play(in).before(out);
+        all.start();
+    }
+
+
 }

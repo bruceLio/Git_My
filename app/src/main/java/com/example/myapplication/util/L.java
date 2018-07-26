@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.util;
 
 import android.text.TextUtils;
 import android.util.Log;

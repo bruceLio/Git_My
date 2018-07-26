@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,12 +6,12 @@ import android.content.SharedPreferences;
 /**
  * Created by xiaolong on 2018/6/19.
  */
-public class ShareUtil {
+public class SharedPreferencesUtils {
 
     private final SharedPreferences config;
     private final SharedPreferences.Editor edit;
 
-    public ShareUtil(Context context) {
+    public SharedPreferencesUtils(Context context) {
         config = context.getSharedPreferences("overall_config", Context.MODE_PRIVATE);
         edit = config.edit();
     }
