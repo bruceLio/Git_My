@@ -10,7 +10,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
  * Created by xiaolong on 2018/6/13.
  */
 public class WxHelper {
-    void test(Context context,String str){
+    public void test(Context context,String str){
 //        WXMiniProgramObject miniProgramObj = new WXMiniProgramObject();
 //        miniProgramObj.webpageUrl = "http://www.qq.com"; // 兼容低版本的网页链接
 //        miniProgramObj.miniprogramType = WXMiniProgramObject.MINIPTOGRAM_TYPE_RELEASE;// 正式版:0，测试版:1，体验版:2
@@ -28,7 +28,8 @@ public class WxHelper {
 //        api.sendReq(req);
 
 //        AppID：wxc819e3156d7bd8d2
-        String appId = "wxc819e3156d7bd8d2"; // 填应用AppId
+//        String appId = "wxc819e3156d7bd8d2"; // 填应用AppId
+        String appId = "wx95837f9bce09e2be"; // 填应用AppId
         IWXAPI api = WXAPIFactory.createWXAPI(context, appId);
 //        pages/index/index?uuid=030846EC&third_uid=xxxxx
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
