@@ -5,21 +5,23 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.myapplication.BuildConfig;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by xiaolong on 2018/6/7.
  */
 public class L {
 
-    public static final String TAG = "xiaolong";
+    public static final String LOG_TAG = "xiaolong";
     public static final boolean DEBUG = BuildConfig.DEBUG;
 
-    public static int e(String msg) {
+    public static void e(String msg) {
         if (DEBUG) {
-            if (TextUtils.isEmpty(msg)) return Log.e(TAG, "msg is null");
-            return Log.e(TAG, msg);
+            if (TextUtils.isEmpty(msg)) {
+                Logger.e("msg is null");
+            }
+            Logger.e(msg);
 
         }
-        return -1;
     }
 }
