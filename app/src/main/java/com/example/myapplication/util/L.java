@@ -18,10 +18,13 @@ public class L {
     public static void e(String msg) {
         if (DEBUG) {
             if (TextUtils.isEmpty(msg)) {
-                Logger.e("msg is null");
+                Log.e(LOG_TAG, "msg is null");
             }
-            Logger.e(msg);
+            Log.e(LOG_TAG, msg);
 
         }
     }
+
+
+
 }

@@ -19,8 +19,14 @@ public class LifecycleHelper implements LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void test() {
+    void testCreate() {
         L.e("this is  test onCreate");
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    void testStop() {
+        L.e("this is  test onStop");
+    }
+
 
 }

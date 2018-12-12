@@ -5,6 +5,10 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation files('libs/fastjson-1.2.4.jar')
+    implementation files('libs/junrar-0.7.jar')
+    implementation files('libs/xz-1.6.jar')
+    implementation files('libs/commons-logging-1.1.1.jar')
+    compile group: 'org.apache.commons', name: 'commons-compress', version: '1.9'
 }
 
 sourceCompatibility = "7"
@@ -16,6 +20,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
     }
 }
 repositories {

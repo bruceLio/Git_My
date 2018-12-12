@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ResizableView">
+        <attr name="resize_ratio" format="float"></attr>
+        <attr name="resize_base">
+            <flag name="width" value="0"></flag>
+            <flag name="height" value="1"></flag>
+        </attr>
+    </declare-styleable>
+</resources>

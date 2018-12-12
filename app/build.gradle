@@ -5,20 +5,31 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.myapplication"
-        minSdkVersion 15
+        applicationId "com.hkzy.ydxw"
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        ndk{
+            moduleName "JniTest"
+        }
     }
+//    signingConfigs {
+//        releaseConfig {
+//
+//
+//            storeFile file("xl.jks")
+//            storePassword "123456"
+//            keyAlias "key0"
+//            keyPassword "123456"
+//        }
+//    }
     signingConfigs {
         releaseConfig {
-
-
-            storeFile file("xl.jks")
-            storePassword "123456"
-            keyAlias "key0"
-            keyPassword "123456"
+            storeFile file("hsp.key")
+            storePassword "2b4ever@id"
+            keyAlias "laowch"
+            keyPassword "2b4ever@id"
         }
     }
     lintOptions {
@@ -35,6 +46,11 @@ android {
             signingConfig signingConfigs.releaseConfig
         }
     }
+    sourceSets {
+        main {
+            jni.srcDirs = []
+        }
+    }
 }
 
 dependencies {
@@ -44,6 +60,12 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation files('libs/fastjson-1.2.4.jar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.jude:easyrecyclerview:4.4.2"
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.lahm.library:easy-protector-release:1.0.4'
+//    implementation 'com.alipay.euler:andfix:0.5.0@aar'
+
+
 }

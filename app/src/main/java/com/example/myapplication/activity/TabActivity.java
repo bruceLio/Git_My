@@ -2,6 +2,8 @@ package com.example.myapplication.activity;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.SingletonTest;
 import com.example.myapplication.adapter.SimpleFragmentViewPagerAdapter;
 
 import java.util.ArrayList;
@@ -77,6 +80,22 @@ public class TabActivity extends BaseActivity {
         }
         vp.setAdapter(new SimpleFragmentViewPagerAdapter(getSupportFragmentManager(), titles));
         tab.setupWithViewPager(vp);
+//        SingletonTest instance = SingletonTest.getInstance(this);
+//        mHandler.sendMessage(new Message());
+
+
 
     }
+//    private Handler mHandler=new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            mHandler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            },3000);
+//        }
+//    };
 }
