@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -137,5 +139,28 @@ public class AnimUtils {
         all.start();
     }
 
+    public static void showRoundAnim(Context context, final View a, final View b) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.exercise_class);
+        a.startAnimation(animation);
+        b.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exercise_round));
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+//        ObjectAnimator aInAnim = ObjectAnimator.ofFloat(a, "translationY", -100, 0);
+//        ObjectAnimator aOutAnim1 = ObjectAnimator.ofFloat(a, "ScaleX", 1.0f, 0.5f);
+//        ObjectAnimator aOutAnim2 = ObjectAnimator.ofFloat(a, "ScaleY", 1.0f, 0.5f);
+
+
+    }
 }

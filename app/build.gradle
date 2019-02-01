@@ -5,15 +5,16 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.hkzy.ydxw"
+        applicationId "com.test"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        ndk{
+        ndk {
             moduleName "JniTest"
         }
     }
+
 //    signingConfigs {
 //        releaseConfig {
 //
@@ -62,10 +63,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation files('libs/fastjson-1.2.4.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.jude:easyrecyclerview:4.4.2"
+    implementation 'com.jude:easyrecyclerview:4.4.2'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.lahm.library:easy-protector-release:1.0.4'
-//    implementation 'com.alipay.euler:andfix:0.5.0@aar'
-
-
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    //    implementation 'com.alipay.euler:andfix:0.5.0@aar'
 }

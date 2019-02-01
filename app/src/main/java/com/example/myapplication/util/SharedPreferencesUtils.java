@@ -19,7 +19,16 @@ public class SharedPreferencesUtils {
     public void putString(String key, String value) {
         edit.putString(key, value).apply();
     }
-    public String getString(String key){
-        return config.getString(key,"");
+
+    public String getString(String key) {
+        return config.getString(key, "");
+    }
+
+    public void putBoolean(String key, boolean value) {
+        edit.putBoolean(key, value).apply();
+    }
+
+    public boolean getBoolean(String key, boolean defaultValue) {
+        return config.getBoolean(key, defaultValue);
     }
 }

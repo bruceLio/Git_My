@@ -1,58 +1,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
+    android:background="#ff3d44"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff">
+    android:layout_height="match_parent">
+
 
     <Button
+
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:text="Button" />
-
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/test" />
-
-    <TextView
-        android:id="@+id/et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/test" />
+        android:layout_centerHorizontal="true"
+        android:text="button"
+        android:translationY="-200dp" />
 
-    <com.example.myapplication.widge.SecondBezierView
-        android:id="@+id/heart"
-        android:layout_width="wrap_content"
+    <com.example.myapplication.widge.ScoreTextView
+        android:id="@+id/tv_score"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="20dp"
+        android:translationY="100dp"
         android:visibility="gone" />
 
-    <RelativeLayout
-        android:layout_centerInParent="true"
+
+    <include layout="@layout/layout_exercise_top" />
+
+    <com.example.myapplication.widge.GradientTextView
+        android:id="@+id/gt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv"
-            android:text="ABCDEFG"
-            android:textSize="20sp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:text=">>>啊啊撒打发确认全高清"
+        android:textColor="#282828"
+        android:textSize="20dp"
+        app:color1="#7fffffff"
+        app:color2="#ccffffff"
+        app:color3="#33ffffff" />
+    <TextView
+        android:id="@+id/tv_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="1222222"
+        android:textColor="#66000000"
+        android:textSize="40dp" />
 </RelativeLayout>

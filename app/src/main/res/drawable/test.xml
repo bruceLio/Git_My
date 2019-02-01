@@ -4,7 +4,7 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/white" />
             <gradient
-                android:endColor="#ffffff"
+                android:endColor="#0ff"
                 android:gradientRadius="100dp"
                 android:startColor="#f0f0f0"
                 android:type="radial" />
@@ -21,7 +21,7 @@
     <item>
 
         <shape android:shape="rectangle">
-            <solid android:color="#fff" />
+            <solid android:color="#0ff" />
             <corners android:radius="5dp" />
         </shape>
 

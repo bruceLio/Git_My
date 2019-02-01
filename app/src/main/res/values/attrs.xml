@@ -7,4 +7,13 @@
             <flag name="height" value="1"></flag>
         </attr>
     </declare-styleable>
+    <declare-styleable name="NetView">
+        <attr name="line_width" format="dimension"></attr>
+
+    </declare-styleable>
+    <declare-styleable name="GradientTextView">
+        <attr name="color1" format="color" />
+        <attr name="color2" format="color" />
+        <attr name="color3" format="color" />
+    </declare-styleable>
 </resources>

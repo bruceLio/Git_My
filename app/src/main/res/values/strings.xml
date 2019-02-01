@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="arrow_right">&#xe604;</string>//向右箭头
+    <string name="arrow_left">&#xe601;</string>
 </resources>

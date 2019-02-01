@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff3d44"
     tools:context="com.example.myapplication.activity.MDActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -31,9 +32,9 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                app:title="测试"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:title="测试" />
 
 
         </android.support.design.widget.CollapsingToolbarLayout>

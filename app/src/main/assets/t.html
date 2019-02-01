@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <button id="p" name="123344" value="aaaa"></button>
+    <script>
+    $("#p").click(jsAlert());
+    window.t.shoToast('123');
+    function sum(a,b){
+    return a+b;
+    }
+    function jsAlert(){
+        var r = alert("我是Alert的提示框");
+        document.getElementById("p").innerHTML="Java成功调的JS的alert方法";
+    }
+
+    function jsConFirm(){
+      var r = confirm("我是ConFirm的弹出框");
+      if (r == true)
+      {
+        document.getElementById("p").innerHTML="用户点击了确认按钮";
+      }else{
+        document.getElementById("p").innerHTML="用户点击了取消按钮";
+      }
+    }
+    function jsPrompt(){
+        //第一个参数是提示
+        //第二个参数是默认值
+        var r = prompt("请输入姓名：","小明同学");
+        if (r != null)
+        {
+         document.getElementById("p").innerHTML="用户输入的姓名为："+r;
+        }else{
+         document.getElementById("p").innerHTML="用户点击了取消按钮";
+        }
+
+    }
+    function jsJava(){
+        //调用java的方法，顶级对象，java方法
+        //可以直接访问JSTest，这是因为JSTest挂载到js的window对象下了
+        JSTest.showToast("我是被JS执行的Android代码");
+    }
+
+    function sum(a,b){
+    return a+b;
+    }
+
+    function showInfoFromJava(){
+    document.getElementById("p").innerHTML="JS方法成功被Java调用";
+    }
+
+
+    </script>
+</head>
+
+
+</html>
