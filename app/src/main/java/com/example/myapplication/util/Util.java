@@ -15,10 +15,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
+import android.util.TypedValue;
 
 public class Util {
     // 两次点击按钮之间的点击间隔不能少于1000毫秒
     private static long lastClickTime;
+
     public static boolean isFastClick() {
         if ((System.currentTimeMillis() - lastClickTime) < 1000) {
             lastClickTime = System.currentTimeMillis();
@@ -28,6 +30,7 @@ public class Util {
         return false;
 
     }
+
     private static final String TAG = "SDK_Sample.Util";
 
     public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
@@ -208,8 +211,14 @@ public class Util {
 
         return null;
     }
+
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+    public static int dp2px(Context context,float dpVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dpVal, context.getResources().getDisplayMetrics());
     }
 }

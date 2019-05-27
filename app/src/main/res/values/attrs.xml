@@ -16,4 +16,16 @@
         <attr name="color2" format="color" />
         <attr name="color3" format="color" />
     </declare-styleable>
+    <declare-styleable name="MultiScrollNumber">
+        <attr name="primary_number" format="integer" />
+        <attr name="target_number" format="integer" />
+        <attr name="number_size" format="integer" />
+        <!--<attr name="number_color" format="color"/>-->
+    </declare-styleable>
+
+    <declare-styleable name="MyMusicView">
+        <attr name="mvLineColor" format="color" />
+        <attr name="mvLineWidth" format="dimension" />
+        <attr name="mvLineHeight" format="dimension" />
+    </declare-styleable>
 </resources>

@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myapplication.R;
 import com.example.myapplication.bean.Channel;
 import com.example.myapplication.util.ItemMoveAdapter;
+import com.example.myapplication.util.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +28,30 @@ public class ChannelAdapter extends RecyclerView.Adapter implements ItemMoveAdap
     private List<Channel> topData = new ArrayList<>();
     private List<Channel> bottomData = new ArrayList<>();
 
-    public ChannelAdapter(Context context, List<Object> data) {
-        this.mContext = context;
-        this.mData = data;
+    public int getmPosition() {
+        return mPosition;
     }
 
-    private int getMidPosition() {
-        return topData.size();
+    private int mPosition = -1;
+
+    public void setFixPosition(int mPosition) {
+        this.mPosition = mPosition;
+    }
+
+
+    public ChannelAdapter(Context context, List<Channel> data, List<Channel> bottomData) {
+        this.mContext = context;
+        this.topData = data;
+        this.bottomData = bottomData;
+        mData = new ArrayList<>();
+        mData.add(new Object());
+        mData.addAll(topData);
+        mData.add(new Object());
+        mData.addAll(bottomData);
+    }
+
+    public int getMidPosition() {
+        return topData.size() + 1;
     }
 
     @Override
@@ -53,7 +72,7 @@ public class ChannelAdapter extends RecyclerView.Adapter implements ItemMoveAdap
                 @Override
                 public int getSpanSize(int i) {
                     if (getItemViewType(i) == LAB) {
-                        return 3;
+                        return ((GridLayoutManager) layoutManager).getSpanCount();
 
                     }
                     return 1;
@@ -64,42 +83,51 @@ public class ChannelAdapter extends RecyclerView.Adapter implements ItemMoveAdap
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        if (viewType == ITEM) {
+            return new SimpleAdapter.ViewHolder(LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_1, viewGroup, false));
+        } else {
+            return new LabViewHolder(LayoutInflater.from(mContext).inflate(R.layout.layout_lab, viewGroup, false));
+        }
 
-
-        return new SimpleAdapter.ViewHolder(LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_1, viewGroup, false));
 
     }
 
     long lastClick = 0L;
 
     @Override
-    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
 
+        if (viewHolder instanceof LabViewHolder) {
 
-        final int position = viewHolder.getAdapterPosition();
-        final Channel data = mData.get(position);
-        ((SimpleAdapter.ViewHolder) viewHolder).textView.setText(data);
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        } else {
+            final int position = viewHolder.getAdapterPosition();
+            final Channel data = (Channel) mData.get(position);
+            ((SimpleAdapter.ViewHolder) viewHolder).textView.setText(data.name);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                if (System.currentTimeMillis() - lastClick < 300) {
-                    return;
+                @Override
+                public void onClick(View v) {
+                    if (position <= mPosition) {
+                        return;
+                    }
+                    if (System.currentTimeMillis() - lastClick < 200) {
+                        return;
+                    }
+                    lastClick = System.currentTimeMillis();
+                    L.e("start");
+                    onItemMove(mData.indexOf(data), getMidPosition());
+                    if (topData.contains(data)) {
+                        topData.remove(data);
+                        bottomData.add(0, data);
+                    } else if (bottomData.contains(data)) {
+                        topData.add(topData.size() - 1 >= 0 ? topData.size() - 1 : 0, data);
+                        bottomData.remove(data);
+                    }
+                    L.e("end");
                 }
-                lastClick = System.currentTimeMillis();
-                int p = getMidPosition();
-                if (position < getMidPosition()) {
-                    topData.remove(data);
-                    bottomData.add(0, data);
-                } else if (position > getMidPosition()) {
-                    topData.add(topData.size() - 1 >= 0 ? topData.size() - 1 : 0, data);
-                    bottomData.remove(data);
-                }
-                onItemMove(viewHolder.getAdapterPosition(), p);
-
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -121,10 +149,11 @@ public class ChannelAdapter extends RecyclerView.Adapter implements ItemMoveAdap
     public boolean onItemMove(int fromPosition, int toPosition) {
         notifyItemMoved(fromPosition, toPosition);
         move(mData, fromPosition, toPosition);
-        notifyItemRangeChanged(0, mData.size());
+        notifyItemRangeChanged(fromPosition < toPosition ? fromPosition : toPosition, Math.abs(fromPosition - toPosition) + 1);
         return false;
     }
-    class LabViewHolder extends RecyclerView.ViewHolder{
+
+    public static class LabViewHolder extends RecyclerView.ViewHolder {
 
         public LabViewHolder(@NonNull View itemView) {
             super(itemView);

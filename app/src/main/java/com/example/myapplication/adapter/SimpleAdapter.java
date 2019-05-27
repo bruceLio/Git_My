@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class SimpleAdapter extends RecyclerView.Adapter implements ItemMoveAdapt
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
         if (viewHolder instanceof ViewHolder) {
             final String data = mData.get(i);
+            L.e("position=" + i);
             ((ViewHolder) viewHolder).textView.setText(data);
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,15 +73,14 @@ public class SimpleAdapter extends RecyclerView.Adapter implements ItemMoveAdapt
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setBackgroundColor(Color.parseColor("#ffffff"));
             textView = itemView.findViewById(android.R.id.text1);
         }
 
 
     }
 
-    public interface OnItemClick
-
-    {
+    public interface OnItemClick {
         void onClick(String str, View view);
     }
 

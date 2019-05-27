@@ -13,12 +13,9 @@ public class FileUtils {
         FileOutputStream outStream = null;
         try {
             outStream = new FileOutputStream(path);
-            FileInputStream inputStream = new FileInputStream(data);
-            byte[] buffer = new byte[1024];
-            while (inputStream.read(buffer) != -1) {
-                outStream.write(buffer);
-            }
+            outStream.write(data.getBytes());
         } catch (Exception e) {
+            L.e(e.getMessage());
         } finally {
             if (outStream != null) {
                 try {
@@ -28,4 +25,5 @@ public class FileUtils {
             }
         }
     }
+
 }

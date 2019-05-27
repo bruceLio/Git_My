@@ -5,10 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -20,8 +23,12 @@ import com.example.myapplication.SystemBarTintManager;
 import com.example.myapplication.adapter.SimpleAdapter;
 import com.example.myapplication.adapter.SimpleRecycleViewAdapter;
 import com.example.myapplication.util.L;
+import com.example.myapplication.util.T;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +41,11 @@ public class MDActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_md);
+        CollapsingToolbarLayout test = findViewById(R.id.test);
+        test.setContentScrimColor(Color.parseColor("#00000000"));
         RecyclerView rv = findViewById(R.id.rv);
         List<String> list = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 100; i++) {
             list.add("position" + i);
         }
         rv.setLayoutManager(new LinearLayoutManager(this));

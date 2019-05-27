@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ChannelAdapter;
 import com.example.myapplication.adapter.SimpleAdapter;
+import com.example.myapplication.bean.Channel;
 import com.example.myapplication.util.MyItemTouchHelperCallback;
 
 import java.util.ArrayList;
@@ -30,32 +31,38 @@ public class ChannelActivity extends BaseActivity {
     private ChannelAdapter topAdapter;
     private boolean topBuzy = false;
     private boolean bottomBuzy = false;
-    List<String> topData = new ArrayList<>();
-    List<String> bottomData = new ArrayList<>();
+    List<Channel> topData = new ArrayList<>();
+    List<Channel> bottomData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel);
         tv = findViewById(R.id.tv);
-        GridLayoutManager manager = new GridLayoutManager(this, 3);
-        GridLayoutManager manager2 = new GridLayoutManager(this, 3);
+        GridLayoutManager manager = new GridLayoutManager(this, 4);
         rvTop = findViewById(R.id.rv_top);
         rvBottom = findViewById(R.id.rv_bottom);
-
-
-        for (int i = 0; i < 18; i++) {
-            topData.add("top" + i);
-            bottomData.add("bottom" + i);
+        int fixCount = 3;
+        for (int i = 0; i < 30; i++) {
+            Channel item = new Channel();
+            String a = i >= fixCount ? "频道" : "固定";
+            item.name = a + i;
+            topData.add(item);
         }
-        topAdapter = new ChannelAdapter(this, topData);
+        for (int i = 30; i < 60; i++) {
+            Channel item = new Channel();
+            item.name = "频道" + i;
+            bottomData.add(item);
+        }
+        topAdapter = new ChannelAdapter(this, topData, bottomData);
+        topAdapter.setFixPosition(fixCount);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyItemTouchHelperCallback(topAdapter));
         itemTouchHelper.attachToRecyclerView(rvTop);
-        bottomAdapter = new SimpleAdapter(this, bottomData);
+//        bottomAdapter = new SimpleAdapter(this, null);
         rvTop.setLayoutManager(manager);
-        rvBottom.setLayoutManager(manager2);
+//        rvBottom.setLayoutManager(manager2);
         rvTop.setAdapter(topAdapter);
-        rvBottom.setAdapter(bottomAdapter);
+//        rvBottom.setAdapter(bottomAdapter);
 //        topAdapter.setItemClickListener(new SimpleAdapter.OnItemClick() {
 //            @Override
 //            public void onClick(String str, final View view) {

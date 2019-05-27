@@ -30,7 +30,8 @@ import java.util.ArrayList;
  * @date 2019/1/2
  */
 public class WxUtils {
-    private static final String APP_ID = "wxc819e3156d7bd8d2";
+//    private static final String APP_ID = "wxc819e3156d7bd8d2";
+    private static final String APP_ID = "wx5d468aad44bdfb6d";
 
     private static int THUMB_SIZE = 150;
 
@@ -60,7 +61,7 @@ public class WxUtils {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 
-    private static IWXAPI getApi() {
+    public static IWXAPI getApi() {
         return WXAPIFactory.createWXAPI(TestApplication.app, APP_ID);
     }
 

@@ -1,35 +1,47 @@
 package com.example.javamodule;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-
-import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import file.util.FileType;
 
 public class Test {
 
 
     public static void main(String[] args) {
-        List<Integer>list=new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
+        Map<String ,Object> data =new HashMap<>();
+        data.put("date",new Date());
+    }
+
+    private static <T> List<T> getRandomList(List<T> data, int count) {
+        List<T> result = new ArrayList<>();
+        int size = data.size();
+        if (size >= count) {
+            List<T> copy = data;
+            Collections.shuffle(copy);
+            result.addAll(copy.subList(0, count));
+        } else {
+            while (count > size) {
+                count -= size;
+                result.addAll(getRandomList(data, size));
+            }
+            result.addAll(getRandomList(data, count));
         }
-        move(list,9,0);
-        move(list,9,1);
-        System.err.println(list);
-        move(list,9,2);
-        move(list,9,3);
-        move(list,9,4);
-        move(list,9,5);
-        System.err.println(list);
+        return result;
+    }
+
+    private static int getd(int from, int target) {
+        return target - from > 0 ? target - from : target - from + 10;
+    }
+
+    private static double getPercent(int currentNum, int mTarget, int mDeltaNum) {
+        int progress = mTarget - currentNum;
+        if (progress < 0) {
+            progress = progress + 10;
+        }
+        return 1 - progress * 1.0 / mDeltaNum;
     }
 
     private static void move(List list, int from, int to) {

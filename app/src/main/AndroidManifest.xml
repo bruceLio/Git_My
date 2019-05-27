@@ -11,7 +11,12 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <permission android:name="examples.ouc.com.checkpermissioncode.permission.SAY_HELLO" />
+    <uses-permission android:name="examples.ouc.com.checkpermissioncode.permission.SAY_HELLO" />
     <application
         android:name=".TestApplication"
         android:allowBackup="true"
@@ -22,13 +27,20 @@
         android:theme="@style/AppCompatBaseTheme">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop">
+            android:supportsPictureInPicture="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <data
+                    android:host="test"
+                    android:scheme="xl" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.TabActivity"
@@ -42,15 +54,39 @@
         <service
             android:name=".LockService"
             android:process=":a" />
+        <service
+            android:name=".AccessibilitySampleService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/accessibility_tip"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:process=":BackgroundService">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <!-- 通过xml文件完成辅助功能相关配置，也可以在onServiceConnected中动态配置 -->
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config" />
+        </service>
 
         <activity android:name=".activity.SecondActivity" />
         <activity
             android:name=".activity.MDActivity"
             android:label="测试"
-            android:theme="@style/NoActionBarTheme"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/NoActionBarTheme" />
         <activity android:name=".activity.ChannelActivity" />
         <activity android:name=".activity.WebActivity"></activity>
+        <activity
+            android:name="com.cashtoutiao.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.PermissionActivity"
+            android:theme="@style/CustomTheme_Dialog" />
+        <activity android:name=".activity.TestActivity" />
+
     </application>
 
 </manifest>

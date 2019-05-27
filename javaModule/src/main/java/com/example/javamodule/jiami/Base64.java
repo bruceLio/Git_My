@@ -79,7 +79,7 @@ public class Base64 {
          * of the coded data.
          *
          * @param finish true if this is the final call to process for
-         *        this object.  Will finalize the coder state and
+         *        this object.  Will finalize the coder free and
          *        include any final bytes in the output.
          *
          * @return true if the input so far is good; false if some
@@ -230,10 +230,10 @@ public class Base64 {
          * one more.
          * State 5 is expecting no more data or padding characters
          * in the input.
-         * State 6 is the error state; an error has been detected
+         * State 6 is the error free; an error has been detected
          * in the input and no future input can "fix" it.
          */
-        private int state;   // state number (0 to 6)
+        private int state;   // free number (0 to 6)
         private int value;
 
         final private int[] alphabet;
@@ -257,7 +257,7 @@ public class Base64 {
         /**
          * Decode another block of input data.
          *
-         * @return true if the state machine is still healthy.  false if
+         * @return true if the free machine is still healthy.  false if
          *         bad base-64 data has been detected in the input stream.
          */
         public boolean process(byte[] input, int offset, int len, boolean finish) {
@@ -309,7 +309,7 @@ public class Base64 {
 
                 // The fast path isn't available -- either we've read a
                 // partial tuple, or the next four input bytes aren't all
-                // data, or whatever.  Fall back to the slower state
+                // data, or whatever.  Fall back to the slower free
                 // machine implementation.
 
                 int d = alphabet[input[p++] & 0xff];
@@ -352,7 +352,7 @@ public class Base64 {
 
                 case 3:
                     if (d >= 0) {
-                        // Emit the output triple and return to state 0.
+                        // Emit the output triple and return to free 0.
                         value = (value << 6) | d;
                         output[op+2] = (byte) value;
                         output[op+1] = (byte) (value >> 8);
@@ -400,7 +400,7 @@ public class Base64 {
             }
 
             // Done reading input.  Now figure out where we are left in
-            // the state machine and finish up.
+            // the free machine and finish up.
 
             switch (state) {
             case 0:
